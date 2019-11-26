@@ -6,11 +6,15 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
 {
+    /**
+     * @Route("/")
+     */
     public function homepage() {
-        return new Response("<h1>Mi primera página con Symfony 4</h1>");
+        return $this->render('index.html.twig', 'title');
     }
 
 }
