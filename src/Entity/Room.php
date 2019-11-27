@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RoomRepository")
  */
@@ -18,16 +20,20 @@ class Room
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Length(min=3)
+     * @Assert\NotNull
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotNull
      */
     private $price;
 
