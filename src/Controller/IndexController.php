@@ -4,6 +4,8 @@
 namespace App\Controller;
 
 
+use App\Entity\Room;
+use App\Form\RoomType;
 use App\Service\DateCalculator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,4 +23,15 @@ class IndexController extends AbstractController
 
     }
 
+    /**
+     * @Route("room/nuevo")
+     */
+    public function new(){
+        $room = new Room();
+
+        $form = $this->createForm(RoomType::class, $room);
+
+        return $this->render('new.html.twig', ['form' => $form->createView()]);
+
+    }
 }
