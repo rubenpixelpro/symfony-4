@@ -23,7 +23,9 @@ class IndexController extends AbstractController
 
         $rep = $this->getDoctrine()->getRepository(Room::class);
 
-        $rooms = $rep->findAll();
+        //$rooms = $rep->findAll();
+
+        $rooms = $rep->findByPrice(300);
 
         return $this->render('index.html.twig',['title' => 'Hotel Pixelpro', 'year' => $year, 'rooms' => $rooms]);
 

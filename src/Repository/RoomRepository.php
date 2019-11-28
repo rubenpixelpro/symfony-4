@@ -19,6 +19,19 @@ class RoomRepository extends ServiceEntityRepository
         parent::__construct($registry, Room::class);
     }
 
+    public function findByPrice($price) {
+
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.price < :val')
+            ->setParameter('val', $price)
+            ->orderBy('r.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+
+    }
+
     // /**
     //  * @return Room[] Returns an array of Room objects
     //  */
