@@ -8,6 +8,7 @@ use App\Entity\Room;
 use App\Form\RoomType;
 use App\Service\DateCalculator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,9 +24,9 @@ class IndexController extends AbstractController
 
         $rep = $this->getDoctrine()->getRepository(Room::class);
 
-        //$rooms = $rep->findAll();
+        $rooms = $rep->findAll();
 
-        $rooms = $rep->findByPrice(300);
+        //$rooms = $rep->findByPrice(300);
 
         return $this->render('index.html.twig',['title' => 'Hotel Pixelpro', 'year' => $year, 'rooms' => $rooms]);
 
@@ -38,6 +39,8 @@ class IndexController extends AbstractController
         $room = new Room();
 
         $form = $this->createForm(RoomType::class, $room);
+
+        $form->add('save', SubmitType::class, ['label' => 'Crear']);
 
         $form->handleRequest($request);
 
@@ -69,6 +72,37 @@ class IndexController extends AbstractController
         $rooms = $rep->find($id);
 
         return $this->render('show.html.twig',['rooms' => $rooms]);
+
+    }
+
+    /**
+     * @Route("room/{id}/edit", name="room_edit")
+     */
+    public function edit($id, Request $request) {
+
+        $rep = $this->getDoctrine()->getRepository(Room::class);
+
+        $rooms = $rep->find($id);
+
+        $form = $this->createForm(RoomType::class, $rooms, ['method' => 'PUT']);
+
+        $form->add('save', SubmitType::class, ['label' => 'Editar']);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $room = $form->getData();
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('room_show',['id' => $room->getId()]);
+
+        }
+
+        return $this->render('edit.html.twig', ['form' => $form->createView()]);
 
     }
 }

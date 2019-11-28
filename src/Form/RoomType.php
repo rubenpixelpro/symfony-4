@@ -19,7 +19,7 @@ class RoomType extends AbstractType
             ->add('name', TextType::class)
             ->add('description', TextareaType::class)
             ->add('price', IntegerType::class)
-            ->add('save', SubmitType::class)
+
         ;
     }
 }
