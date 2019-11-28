@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <p>Habitación {{ id }} creada correctamente</p>
+    <h2>{{ rooms.name }}</h2>
+    <p>{{ rooms.description }}</p>
+    <p>{{ rooms.price }}€</p>
 {% endblock %}

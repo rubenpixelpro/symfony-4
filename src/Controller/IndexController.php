@@ -20,7 +20,12 @@ class IndexController extends AbstractController
      */
     public function homepage(DateCalculator $calc) {
         $year = $calc->yearDiff(self::HOTEL_YEAR);
-        return $this->render('index.html.twig',['title' => 'Hotel Pixelpro', 'year' => $year]);
+
+        $rep = $this->getDoctrine()->getRepository(Room::class);
+
+        $rooms = $rep->findAll();
+
+        return $this->render('index.html.twig',['title' => 'Hotel Pixelpro', 'year' => $year, 'rooms' => $rooms]);
 
     }
 
@@ -56,7 +61,12 @@ class IndexController extends AbstractController
      * @Route("room/{id}/show", name="room_show")
      */
     public function show($id) {
-        return $this->render('show.html.twig',['id' => $id]);
+
+        $rep = $this->getDoctrine()->getRepository(Room::class);
+
+        $rooms = $rep->find($id);
+
+        return $this->render('show.html.twig',['rooms' => $rooms]);
 
     }
 }

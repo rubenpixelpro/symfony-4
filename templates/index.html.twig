@@ -3,5 +3,15 @@
 {% block body %}
 <h1>{{ title|lower }}</h1>
 <p>Bienvenidos al hotel Pixelpro</p>
-    <p>Alojando huéspedes desde hace {{ year }} años</p>
+<p>Alojando huéspedes desde hace {{ year }} años</p>
+<ul>
+    {% for room in rooms %}
+        <li>
+            {{ room.name }}
+            <a href="{{ path('room_show', { id: room.id }) }}">Ver más</a>
+        </li>
+
+    {% endfor %}
+</ul>
+
 {% endblock %}
