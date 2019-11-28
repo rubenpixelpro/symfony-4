@@ -10,6 +10,7 @@
             {{ room.name }}
             <a href="{{ path('room_show', { id: room.id }) }}">Ver más</a>
             <a href="{{ path('room_edit', { id: room.id }) }}">Editar</a>
+            <a href="{{ path('room_delete', { id: room.id }) }}">Borrar</a>
         </li>
 
     {% endfor %}

@@ -105,4 +105,23 @@ class IndexController extends AbstractController
         return $this->render('edit.html.twig', ['form' => $form->createView()]);
 
     }
+
+    /**
+     * @Route("room/{id}/delete", name="room_delete")
+     */
+    public function delete($id) {
+
+        $rep = $this->getDoctrine()->getRepository(Room::class);
+
+        $rooms = $rep->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $entityManager->remove($rooms);
+
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_homepage');
+
+    }
 }
