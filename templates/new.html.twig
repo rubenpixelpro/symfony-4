@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {{ parent() }}
     <h2>Habitación nueva</h2>
     {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {% endblock %}

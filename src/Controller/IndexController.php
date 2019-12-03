@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Room;
 use App\Form\RoomType;
 use App\Service\DateCalculator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +35,7 @@ class IndexController extends AbstractController
 
     /**
      * @Route("room/nuevo", name="room_nuevo")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request){
         $room = new Room();
@@ -77,6 +79,7 @@ class IndexController extends AbstractController
 
     /**
      * @Route("room/{id}/edit", name="room_edit")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit($id, Request $request) {
 
@@ -108,6 +111,7 @@ class IndexController extends AbstractController
 
     /**
      * @Route("room/{id}/delete", name="room_delete")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete($id) {
 

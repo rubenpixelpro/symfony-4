@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {{ parent() }}
     <h2>{{ rooms.name }}</h2>
     <p>{{ rooms.description }}</p>
     <p>{{ rooms.price }}€</p>

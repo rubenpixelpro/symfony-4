@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
+{{ parent() }}
 <h1>{{ title|lower }}</h1>
 <p>Bienvenidos al hotel Pixelpro</p>
 <p>Alojando huéspedes desde hace {{ year }} años</p>
@@ -9,11 +10,17 @@
         <li>
             {{ room.name }}
             <a href="{{ path('room_show', { id: room.id }) }}">Ver más</a>
-            <a href="{{ path('room_edit', { id: room.id }) }}">Editar</a>
-            <a href="{{ path('room_delete', { id: room.id }) }}">Borrar</a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('room_edit', { id: room.id }) }}">Editar</a>
+                <a href="{{ path('room_delete', { id: room.id }) }}">Borrar</a>
+            {% endif %}
         </li>
+
 
     {% endfor %}
 </ul>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('room_nuevo') }}">Habitación nueva</a>
+    {% endif %}
 
 {% endblock %}
