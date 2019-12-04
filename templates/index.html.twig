@@ -2,25 +2,38 @@
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
 {{ parent() }}
-<h1>{{ title|lower }}</h1>
-<p>Bienvenidos al hotel Pixelpro</p>
-<p>Alojando huéspedes desde hace {{ year }} años</p>
-<ul>
-    {% for room in rooms %}
-        <li>
-            {{ room.name }}
-            <a href="{{ path('room_show', { id: room.id }) }}">Ver más</a>
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('room_edit', { id: room.id }) }}">Editar</a>
-                <a href="{{ path('room_delete', { id: room.id }) }}">Borrar</a>
-            {% endif %}
-        </li>
 
+    <main role="main">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3">{{ title }}</h1>
+                <p>Bienvenidos al hotel Pixelpro</p>
+                <p>Alojando huéspedes desde hace {{ year }} años</p>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                {% for room in rooms %}
+                <div class="col-md-4">
+                    <h2>{{ room.name }}</h2>
+                    <p>
+                        <a class="btn btn-secondary" href="{{ path('room_show', { id: room.id }) }}" role="button">Ver más &raquo;</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="btn btn-secondary" href="{{ path('room_edit', { id: room.id }) }}" role="button">Editar &raquo;</a>
+                            <a class="btn btn-secondary" href="{{ path('room_delete', { id: room.id }) }}" role="button">Borrar &raquo;</a>
+                        {% endif %}
+                    </p>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+           <hr>
+        </div> <!-- /container -->
+        {% if is_granted('ROLE_ADMIN') %}
+            <p><a class="btn btn-secondary" href="{{ path('room_nuevo') }}" role="button">Habitación nueva &raquo;</a></p>
+        {% endif %}
 
-    {% endfor %}
-</ul>
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('room_nuevo') }}">Habitación nueva</a>
-    {% endif %}
+    </main>
 
 {% endblock %}
